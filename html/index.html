@@ -1,0 +1,44 @@
+<!--
+index.html
+Version: 1.0
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Video Player</title>
+	<link rel="icon" type="image/png" href="../icons/icon_48.png">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+
+	<div id="hubView">
+		<div id="pageHeader">
+			<h1 align="center">Local Video Player</h1>
+		</div>
+		
+		<div id="mainContainer">
+			<div id="playerContainer">
+				<div id="loadMedia">
+					<input type="file" id="fileInputHidden" accept="video/mp4">
+					<input type="button" id="fileInput" value="Select File">
+					<input type="button" id="folderInput" value="Select Folder">
+	
+				</div>
+				<br>
+				<video controls id="videoPlayer" poster="../resources/black_screen.jpg">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			
+			<div id="playlistContainer">
+				<div id="playlist"></div>
+			</div>
+		</div>
+	</div>
+
+    <script src="../js/file_handler.js"></script>
+
+</body>
+</html>
