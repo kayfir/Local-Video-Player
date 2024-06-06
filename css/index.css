@@ -1,5 +1,5 @@
 /* index.css */
-/* version 0.7 */
+/* version 0.8 */
 
 body, html {
 	background-color: #272727;
@@ -19,9 +19,13 @@ body, html {
 /* Page header */
 #pageHeader {
 	font-size: 5vh;
-	line-height: 2rem;
+	line-height: 50%;
 	font-weight: 500;
 	white-space: nowrap;
+}
+
+#header-icon {
+	line-height: 100px;
 }
 
 /* Main container */
@@ -37,6 +41,14 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: left;
+    overflow: hidden;
+    min-width: 480px;
+}
+
+/* Player iframe */
+#videoPlayerIframe {
+    width: 100%;
+    border: none;
 }
 
 /* Load media */
@@ -129,10 +141,12 @@ div div h3 {
 #playlistItems {
 	overflow-y: auto;
 	height: 50vh;
+	list-style: none;
+	padding-left: 0;
 }
 
 /* Playlist item */
-#playlistItems div {
+#playlistItems li {
     margin: 10px;
     cursor: pointer;
     white-space: nowrap; /* Prevent line breaks */
@@ -149,18 +163,18 @@ div div h3 {
 	line-height: 30px;
 }
 
-#playlistItems div:hover {
+#playlistItems li:hover {
     background-color: #4e4e4e;
 	transition: background-color 0.3s ease !important;
 }
 
-#playlistItems div:active {
+#playlistItems li:active {
     background-color: #2e2e2e; /* Adjust the color to a slightly darker shade */
 	transition: background-color 0.1s ease !important;
 }
 
 /* Selected playlist item */
-#playlistItems div.selected {
+#playlistItems li.selected {
     background-color: #272727;
 	cursor: default;
 }

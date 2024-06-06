@@ -52,7 +52,7 @@ function displayPlaylist(files) {
     playlistContainer.appendChild(playlistHeader);
 
     // Create nested div for playlist items
-    var playlistItemsContainer = document.createElement('div');
+    var playlistItemsContainer = document.createElement('ul');
     playlistItemsContainer.id = 'playlistItems';
     playlistContainer.appendChild(playlistItemsContainer);
 
@@ -60,7 +60,7 @@ function displayPlaylist(files) {
     for (var i = 0; i < files.length; i++) {
         var file = files[i];
         if (file.type.startsWith('video/mp4')) {
-            var videoItem = document.createElement('div');
+            var videoItem = document.createElement('li');
             var videoTitle = document.createElement('span');
             var fileName = file.name.split('.').slice(0, -1).join('.');
             videoTitle.textContent = fileName;
@@ -90,18 +90,28 @@ function createPlayEventHandler(file, videoItem) {
 }
 
 function loadVideo(file) {
-    var video = document.getElementById('videoPlayer');
-    var source = document.createElement('source');
-    source.src = URL.createObjectURL(file);
-    source.type = 'video/mp4';
-    video.innerHTML = ''; // Clear any previous sources
-    video.appendChild(source);
-    video.load();
-    video.play(); // Auto-play the new video
+    var iframe = document.getElementById('videoPlayerIframe');
+    var iframeWindow = iframe.contentWindow;
 
-    // Update the title and replace underscores with spaces
-    var fileName = file.name.split('.').slice(0, -1).join('.').replace(/_/g, ' ');
-    document.title = 'LVP - ' + fileName;
+    iframe.onload = () => {
+        var video = iframeWindow.document.querySelector('video');
+        var source = iframeWindow.document.createElement('source');
+        source.src = URL.createObjectURL(file);
+        source.type = 'video/mp4';
+        video.innerHTML = ''; // Clear any previous sources
+        video.appendChild(source);
+        video.load();
+        video.play(); // Auto-play the new video
+
+        // Update the title and replace underscores with spaces
+        var fileName = file.name.split('.').slice(0, -1).join('.').replace(/_/g, ' ');
+        document.title = 'LVP - ' + fileName;
+    };
+
+    // Trigger the load event in case the iframe is already loaded
+    if (iframeWindow.document.readyState === 'complete') {
+        iframe.onload();
+    }
 }
 
 function highlightSelectedItem(videoItem) {

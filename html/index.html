@@ -1,6 +1,6 @@
 <!--
 index.html
-Version: 1.0
+Version: 1.5
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -26,11 +26,9 @@ Version: 1.0
 					<input type="button" id="folderInput" value="Select Folder">
 	
 				</div>
-				<br>
-				<video controls id="videoPlayer" poster="../resources/black_screen.jpg">
-					Your browser does not support the video tag.
-				</video>
-			</div>
+                <!-- Embedding the custom player in an iframe -->
+                <iframe id="videoPlayerIframe" src="../player/player.html" allow="fullscreen"></iframe>
+            </div>
 			
 			<div id="playlistContainer">
 				<div id="playlist"></div>
@@ -38,7 +36,8 @@ Version: 1.0
 		</div>
 	</div>
 
-    <script src="../js/file_handler.js"></script>
+	<script src="../js/index.js"></script>
+	<script src="../js/file_handler.js"></script>
 
 </body>
 </html>
