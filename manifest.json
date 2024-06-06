@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Local Video Player",
   "description": "A minimalistic and comfortable UI for playing locally stored video files, supports loading directories as playlists",
-  "version": "0.2",
+  "version": "0.4",
   "icons": {
 	"16": "icons/icon_16.png",
 	"32": "icons/icon_32.png",
