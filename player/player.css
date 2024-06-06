@@ -1,0 +1,233 @@
+/* player.css */
+/* version 0.5 */
+
+@import url('../css/fonts/poppins.woff2');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{	
+	background: #272727;
+}
+body, .video-controls, .video-timer, .options{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.play-pause span {
+	font-size: 35px;
+}
+.volume span {
+	font-size: 35px;
+}
+button.fullscreen span {
+	font-size: 30px;
+}
+.container{
+	max-width: 900px;
+	width: 100%;
+	height: auto;
+	position: relative;
+	background: #000;
+	overflow: hidden;
+}
+.container video {
+    width: 100%;
+    height: 100%;
+	max-height: 380px;
+    object-fit: contain;
+	display: block;
+}
+.container video {
+    width: 100%;
+    height: 100%;
+	max-height: none;
+}
+.wrapper{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -15px;
+	z-index: 1;
+	opacity: 0;
+	pointer-events: none;
+	transition: all 0.4s ease;
+}
+.container.show-controls .wrapper{
+	bottom: 0px;
+	z-index: 1;
+	opacity: 1;
+	pointer-events: auto;
+	transition: all 0.08s ease;
+}
+.wrapper::before{
+	content: "";
+	bottom: 0;
+	width: 100%;
+	z-index: -1;
+	position: absolute;
+	height: calc(100% + 35px);
+	background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+.video-timeline{
+	height: 8px;
+	width: 90%;
+	cursor: pointer;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+.video-timeline .progress-area{
+	height: 4px;
+	position: relative;
+	background: rgba(255,255,255,0.6);
+	border-radius: 6px;
+}
+.progress-area span{
+	position: absolute;
+	left: 50%;
+	top: -25px;
+	font-size: 13px;
+	color: #FFF;
+	transform: translateX(-50%);
+}
+.progress-area .progress-bar{
+	width: 0%;
+	height: 100%;
+	position: relative;
+	background: #0060df;
+	border-radius: 6px;
+}
+.progress-area .progress-bar::before{
+	content: "";
+	right: -6px;
+	top: 50%;
+	height: 12px;
+	width: 12px;
+	background: inherit;
+	position: absolute;
+	border-radius: 50%;
+	transform: translateY(-50%);
+}
+.progress-area span, .progress-area .progress-bar::before{
+	display: none;
+}
+.video-timeline:hover .progress-area span,
+.video-timeline:hover .progress-area .progress-bar::before{
+	display: block;
+}
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 1;
+}
+.video-controls {
+	padding: 5px 20px 10px;
+}
+.video-controls .options{
+	width: 100%;
+}
+.video-controls .options:first-child{
+	justify-content: flex-start;
+}
+.video-controls .options:last-child{
+	justify-content: flex-end;
+}
+.options.center{
+	position: absolute;
+	max-width: 30%;
+}
+.options.left{
+	position: absolute;
+	max-width: 80%;
+	left: 5px;
+}
+.options button{
+	width: 40px;
+	height: 40px;
+	border: none;
+	cursor: pointer;
+	color: #FFF;
+	font-size: 19px;
+	background: none;
+}
+.options button :where(i, span){
+	width: 100%;
+	height: 100%;
+	line-height: 40px;
+}
+.options input{
+	height: 4px;
+	max-width:50px;
+	cursor: pointer;
+}
+.options .video-timer{
+	font-size: 10px;
+	color: #efefef;
+	margin-left: 4px;
+	opacity: 0.7;
+}
+.video-timer .separator{
+	font-size: 14px;
+	margin: 0 1px;
+	font-family: "Open sans";
+}
+.playback-content{
+	position: relative;
+}
+.playback-content .speed-options{
+	position: absolute;
+	bottom: 40px;
+	right: -25px;
+	width: 95px;
+	opacity: 0;
+	pointer-events: none;
+	list-style: none;
+	background: #3e3e3e;
+	border-radius: 4px;
+	transition: opacity 0.13s ease;
+}
+.playback-content .speed-options.show{
+	opacity: 1;
+	pointer-events: auto;
+}
+.speed-options li{
+	cursor: pointer;
+	font-size: 14px;
+	color: #FFF;
+	padding: 5px 0 5px 15px;
+}
+.speed-options li.active{
+	border-radius: 4px;
+	background: #272727;
+}
+.options .subs-menu{
+	position: absolute;
+	bottom: 50px;
+	right: 32px;
+	width: 95px;
+	opacity: 0;
+	pointer-events: none;
+	list-style: none;
+	background: #3e3e3e;
+	border-radius: 4px;
+	transition: opacity 0.13s ease;
+}
+.options .subs-menu.show{
+	opacity: 1;
+	pointer-events: auto;
+}
+.subs-menu li{
+	cursor: pointer;
+	font-size: 14px;
+	color: #FFF;
+	padding: 5px 0 5px 15px;
+}
+.subs-menu li.active{
+	border-radius: 4px;
+	background: #272727;
+}
+.container video{
+	width: 100%;
+}
