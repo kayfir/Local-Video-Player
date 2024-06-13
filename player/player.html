@@ -1,6 +1,6 @@
 <!--
 player.html
-Version: 0.5
+Version: 0.6
 -->
 
 <!DOCTYPE html>
@@ -65,14 +65,16 @@ Version: 0.5
 							<li class="load-subs">Add subtitle file</li>
 							<li class="no-subs active">None</li>
 						</ul>
-						<input type="file" id="subsInput" accept=".vtt" style="display: none;">
+						<input type="file" id="subsInput" accept=".vtt,.srt" style="display: none;">
 						<button class="fullscreen">
 							<span class="material-symbols-sharp">fullscreen</span>
 						</button>	
 					</li>
 				</ul>
 			</div>
-			<video class="" poster="../resources/black_screen.jpg"></video>
+			<video class="" poster="../resources/black_screen.jpg">
+				<track kind="subtitles" label="" srclang="" src="" default="">
+			</video>
 		</div>
 		
 		<script src="player.js"></script>

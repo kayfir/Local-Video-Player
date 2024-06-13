@@ -1,4 +1,4 @@
-// Version: 0.5
+// Version: 0.6
 
 const container = document.querySelector(".container"),
 mainVideo = container.querySelector("video"),
@@ -16,9 +16,11 @@ speedOptions = container.querySelector(".speed-options"),
 subtitlesBtn = container.querySelector(".subtitles span"),
 subsMenu = container.querySelector(".subs-menu"),
 subsInput = document.getElementById("subsInput"),
+subtitleTrack = mainVideo.querySelector("track[kind='subtitles']"),
 fullscreenBtn = container.querySelector(".fullscreen span");
 let currentTrack = null;
 let timer;
+
 
 const hideControls = () => {
 	if(mainVideo.paused) return;
@@ -126,59 +128,99 @@ document.addEventListener("click", e => {
 	}
 });
 
+// Show/hide subtitles menu
 subtitlesBtn.addEventListener("click", () => {
-	subsMenu.classList.toggle("show");
+    subsMenu.classList.toggle("show");
 });
 
+// Activate the selected subtitle option
 subsMenu.querySelectorAll("li").forEach(option => {
-	option.addEventListener("click", () => {
-		subsMenu.querySelector(".active").classList.remove("active");
-		option.classList.add("active");
-	});
+    option.addEventListener("click", () => {
+        subsMenu.querySelector(".active").classList.remove("active");
+        option.classList.add("active");
+    });
 });
 
+// Hide the subtitles menu when clicking outside of it
 document.addEventListener("click", e => {
-	if(e.target.tagName !== "SPAN" || e.target.className !== "material-icons") {
-		subsMenu.classList.remove("show");
-	}
+    if (e.target.tagName !== "SPAN" || e.target.className !== "material-icons") {
+        subsMenu.classList.remove("show");
+    }
 });
 
-const loadSubtitleFile = (file) => {
-	const reader = new FileReader();
-	reader.onload = (e) => {
-		const track = document.createElement("track");
-		track.kind = "subtitles";
-		track.label = "English";
-		track.srclang = "en";
-		track.src = URL.createObjectURL(new Blob([e.target.result], { type: "text/vtt" }));
-		track.default = true;
-		mainVideo.appendChild(track);
-		mainVideo.textTracks[0].mode = "showing";
-	};
-	reader.readAsText(file);
+// Load subtitle file
+const loadSubtitleFile = (file, isVtt = true) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        let content = e.target.result;
+        if (!isVtt) {
+            content = convertSrtToVtt(content);
+        }
+        subtitleTrack.src = URL.createObjectURL(new Blob([content], { type: "text/vtt" }));
+        subtitleTrack.label = "English";
+        subtitleTrack.srclang = "en";
+        subtitleTrack.default = true;
+
+        // Ensure the track is ready and set to showing
+        subtitleTrack.addEventListener('load', () => {
+            subtitleTrack.mode = "showing";
+            disableOtherTracks(subtitleTrack);
+        });
+    };
+    reader.readAsText(file);
 };
 
+// Disable all other text tracks
+function disableOtherTracks(currentTrack) {
+    const textTracks = mainVideo.textTracks;
+    for (let i = 0; i < textTracks.length; i++) {
+        if (textTracks[i] !== currentTrack.track) {
+            textTracks[i].mode = "disabled";
+        }
+    }
+}
+
+// Trigger subtitle file input click
 subsMenu.querySelector(".load-subs").addEventListener("click", () => {
-	subsInput.click();
+    subsInput.click();
 });
 
+// Handle subtitle file input change
 subsInput.addEventListener("change", (e) => {
-	const file = e.target.files[0];
-	if (file) {
-		loadSubtitleFile(file);
-	}
+    const file = e.target.files[0];
+    if (file) {
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        if (fileExtension === 'srt') {
+            loadSubtitleFile(file, false);
+        } else if (fileExtension === 'vtt') {
+            loadSubtitleFile(file, true);
+        } else {
+            alert('Unsupported subtitle format. Please upload a .srt or .vtt file.');
+        }
+    }
 });
 
-// Add an event listener to the "no-subs" element
+// Handle 'None' option to remove subtitles
 const noSubsButton = subsMenu.querySelector(".no-subs");
 noSubsButton.addEventListener("click", () => {
-    // Check if a subtitle track exists
-    const existingTrack = mainVideo.querySelector("track[kind='subtitles']");
-    if (existingTrack) {
-        // Remove the existing subtitle track
-        mainVideo.removeChild(existingTrack);
+    subtitleTrack.src = "";
+    subtitleTrack.mode = "disabled";
+
+    // Ensure the 'None' option is marked as active
+    subsMenu.querySelector(".active").classList.remove("active");
+    noSubsButton.classList.add("active");
+});
+
+// Convert SRT to VTT
+function convertSrtToVtt(srtContent) {
+    const lines = srtContent.split(/\r?\n/);
+    let vttContent = "WEBVTT\n\n";
+    for (let line of lines) {
+        line = line.replace(/(\d{2}):(\d{2}):(\d{2}),(\d{3})/g, '$1:$2:$3.$4');
+        vttContent += line + '\n';
     }
-})
+    return vttContent;
+}
 
 fullscreenBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {

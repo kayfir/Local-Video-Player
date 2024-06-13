@@ -8,7 +8,7 @@ A Firefox addon to play local video files in your browser.
 
 1. load singular file
 2. load folder as playlist
-3. add subtitle track (.vtt format)
+3. add subtitle track (supported formats: .vtt, .srt)
 4. PiP support
 
 ### Controls hotkeys:

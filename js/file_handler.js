@@ -1,4 +1,4 @@
-// Version: 1.0
+// Version: 1.5
 
 var currentVideo = null;
 var folderLoaded = false;
@@ -98,7 +98,6 @@ function loadVideo(file) {
         var source = iframeWindow.document.createElement('source');
         source.src = URL.createObjectURL(file);
         source.type = 'video/mp4';
-        video.innerHTML = ''; // Clear any previous sources
         video.appendChild(source);
         video.load();
         video.play(); // Auto-play the new video
