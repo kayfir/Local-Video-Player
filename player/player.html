@@ -1,0 +1,83 @@
+<!--
+player.html
+Version: 0.6
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="player.css">
+		<meta name="viewport" content="width=vw, initial-scale=1.0">
+		<link rel="stylesheet" href="../css/styles.css" />
+		<title>Player</title>
+	</head>
+	<body>
+		<div class="container show-controls">
+			<div class="wrapper">
+				<div class="video-timeline">
+					<div class="progress-area">
+						<span class="">00:00</span>
+						<div class="progress-bar"></div>
+					</div>
+				</div>
+				<ul class="video-controls">
+					<li class="options left">
+						<button class="volume">
+							<span class="material-symbols-sharp">volume_up</span>
+						</button>
+						<input type="range" min="0" max="1" step="any">
+						<div class="video-timer">
+							<p class="current-time">00:00</p>
+							<p class="separator"> / </p>
+							<p class="video-duration">00:00</p>
+						</div>
+					</li>
+					<li class="options center">
+						<button class="replay">
+							<span class="material-symbols-sharp">replay_5</span>
+						</button>
+						<button class="play-pause">
+							<span class="material-symbols-sharp">play_arrow</span>
+						</button>
+						<button class="skip">
+							<span class="material-symbols-sharp">forward_5</span>
+						</button>
+					</li>
+					<li class="options right">
+						<div class="playback-content">
+							<button class="playback-speed">
+								<span class="material-symbols-sharp">slow_motion_video</span>
+							</button>
+							<ul class="speed-options">
+								<li data-speed="2">2x</li>
+								<li data-speed="1.5">1.5x</li>
+								<li data-speed="1" class="active">Normal</li>
+								<li data-speed="0.75">0.75x</li>
+								<li data-speed="0.5">0.5x</li>
+							</ul>
+						</div>
+						<button class="subtitles">
+							<span class="material-icons">subtitles</span>
+						</button>
+						<ul class="subs-menu">
+							<li class="load-subs">Add subtitle file</li>
+							<li class="no-subs active">None</li>
+						</ul>
+						<input type="file" id="subsInput" accept=".vtt,.srt" style="display: none;">
+						<button class="fullscreen">
+							<span class="material-symbols-sharp">fullscreen</span>
+						</button>	
+					</li>
+				</ul>
+			</div>
+			<video class="" poster="../resources/black_screen.jpg">
+				<track kind="subtitles" label="" srclang="" src="" default="">
+			</video>
+		</div>
+		
+		<script src="player.js"></script>
+	
+	</body>
+</html>
