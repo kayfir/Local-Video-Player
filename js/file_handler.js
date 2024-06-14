@@ -1,4 +1,4 @@
-// Version: 1.5
+// Version: 1.6
 
 var currentVideo = null;
 var folderLoaded = false;
@@ -95,6 +95,17 @@ function loadVideo(file) {
 
     iframe.onload = () => {
         var video = iframeWindow.document.querySelector('video');
+        var existingSources = video.querySelectorAll('source');
+
+        // Remove existing source elements without affecting track elements
+        existingSources.forEach(source => source.remove());
+
+        // Programmatically toggle 'none' option in the subs menu
+        var noSubsButton = iframeWindow.document.querySelector('.no-subs');
+        if (noSubsButton) {
+            noSubsButton.click();
+        }
+
         var source = iframeWindow.document.createElement('source');
         source.src = URL.createObjectURL(file);
         source.type = 'video/mp4';
