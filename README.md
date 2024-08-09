@@ -29,8 +29,7 @@ A Firefox addon to play local video files in your browser.
 
 1. options/settings page
 2. light-mode
-3. custom player with more advanced controls
-4.  media tracker iframe (Letterboxd, Trakt, MAL-Sync etc.)
+3. media tracker iframe (Letterboxd, Trakt, MAL-Sync etc.)
 ## Links
 
 https://addons.mozilla.org/en-US/firefox/addon/local-video-player/
